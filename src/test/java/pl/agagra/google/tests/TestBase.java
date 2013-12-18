@@ -2,9 +2,9 @@ package pl.agagra.google.tests;
 
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,15 +20,7 @@ public class TestBase {
 
     @BeforeClass
     public void beforeAllTests() {
-        driver = new FirefoxDriver();
-        driver.manage().deleteAllCookies();
-        driver.manage().window().maximize();
-    }
-
-    @AfterClass
-    public void afterAllTests() {
-        System.out.println("Tests done!");
-        driver.quit();
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
 
 

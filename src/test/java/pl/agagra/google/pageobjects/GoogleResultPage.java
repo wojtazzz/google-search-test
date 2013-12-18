@@ -12,6 +12,10 @@ import org.openqa.selenium.WebDriver;
  */
 public class GoogleResultPage extends Page {
 
+    private By searchResultTitleLocator = By.cssSelector(".rc .r");
+    private By searchResultUrlLocator = By.cssSelector(".vurls");
+    private By searchResultDescriptionLocator = By.cssSelector(".st");
+
 
     private By statsTextLocator = By.cssSelector("#resultStats");
     private String query;
@@ -23,6 +27,19 @@ public class GoogleResultPage extends Page {
 
     public boolean isLoaded() {
         return driver.getCurrentUrl().equals(URL + "/#q" + query);
+    }
+
+    public boolean atLeastTenResultsAreFound() {
+        waitForElementVisible(searchResultTitleLocator, 5);
+        return driver.findElements(searchResultTitleLocator).size() >= 10;
+    }
+
+    public boolean noResultsFound() {
+        return driver.findElements(searchResultTitleLocator).size() == 0;
+    }
+
+    public boolean phraseNotFoundSloganIsDiplayed(String phrase) {
+        return isTextPatternPresent("Podana fraza");
     }
 
 

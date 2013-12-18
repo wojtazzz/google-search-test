@@ -15,7 +15,7 @@ public class GoogleSearchPage extends Page {
 
     private By googleLogoLocator = By.cssSelector("#hplogo");
     private By searchButtonLocator = By.cssSelector("#gbqfba");
-    private By searchFieldLocator = By.cssSelector("#gs_htif0");
+    private By searchFieldLocator = By.cssSelector("#gbqfq");
     private By luckyShotButtonLocator = By.cssSelector("#gbqfbb");
 
 
@@ -26,8 +26,8 @@ public class GoogleSearchPage extends Page {
 
     public GoogleResultPage searchForPhrase(String query) {
         WebElement searchField = driver.findElement(searchFieldLocator);
-        searchField.clear();
-        searchField.sendKeys(query);
+        //   searchField.clear();
+        searchField.sendKeys(query + "\n");
         return new GoogleResultPage(driver, query);
     }
 
