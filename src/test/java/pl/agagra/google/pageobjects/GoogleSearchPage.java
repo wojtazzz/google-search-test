@@ -1,8 +1,11 @@
 package pl.agagra.google.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.security.Key;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,27 +20,45 @@ public class GoogleSearchPage extends Page {
     private By searchButtonLocator = By.cssSelector("#gbqfba");
     private By searchFieldLocator = By.cssSelector("#gbqfq");
     private By luckyShotButtonLocator = By.cssSelector("#gbqfbb");
-
+    private By cookieInfoSloganLocator = By.xpath(".//*[@id='epb-notice']");
+    private By cookieAcceptButtonLocator = By.cssSelector("#epb-ok");
 
     public GoogleSearchPage(WebDriver driver) {
         super(driver);
     }
 
-
-    public GoogleResultPage searchForPhrase(String query) {
+    public GoogleResultPage inputPhrase(String query) {
         WebElement searchField = driver.findElement(searchFieldLocator);
-        //   searchField.clear();
-        searchField.sendKeys(query + "\n");
+        searchField.sendKeys(query);
         return new GoogleResultPage(driver, query);
     }
 
     public boolean isLoaded() {
+        waitForElementVisible(googleLogoLocator, 5);
         System.out.println(driver.getCurrentUrl());
-        return driver.getCurrentUrl().equals(URL);
+        return driver.getCurrentUrl().matches("(http||https)://" + URL + "\\/?");
     }
 
     public boolean logoIsPresent() {
         return elementPresent(googleLogoLocator);
     }
 
+    public boolean cookieInfoIsDisplayed() {
+        return elementIsVisible(cookieInfoSloganLocator);
+    }
+
+    public GoogleSearchPage acceptCookies() {
+        waitForElementVisible(cookieAcceptButtonLocator, 5);
+
+        driver.findElement(cookieAcceptButtonLocator).click();
+
+        return this;
+    }
+
+    public GoogleSearchPage pressSearchButton() {
+        driver.findElement(searchButtonLocator).click();
+        return this;
+    }
 }
+
+
