@@ -15,7 +15,7 @@ public class GoogleSearchPage extends Page {
 
     private By googleLogoLocator = By.id("hplogo");
     private By searchButtonLocator = By.id("gbqfba");
-    private By searchFieldLocator = By.id("#gbqfq");
+    private By searchFieldLocator = By.id("gbqfq");
     private By cookieInfoSloganLocator = By.xpath(".//*[@id='epb-notice']");
     private By cookieAcceptButtonLocator = By.cssSelector("#epb-ok");
 
@@ -31,7 +31,6 @@ public class GoogleSearchPage extends Page {
 
     public boolean isLoaded() {
         waitForElementVisible(googleLogoLocator, 5);
-        System.out.println(driver.getCurrentUrl());
         return driver.getCurrentUrl().matches("(http||https)://" + URL + "\\/?");
     }
 

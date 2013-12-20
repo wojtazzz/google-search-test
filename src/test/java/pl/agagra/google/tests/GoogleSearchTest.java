@@ -3,14 +3,12 @@ package pl.agagra.google.tests;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pl.agagra.google.pageobjects.GoogleResultPage;
 import pl.agagra.google.pageobjects.GoogleSearchPage;
 import pl.agagra.google.pageobjects.Page;
 import pl.agagra.google.utils.FileUtils;
+import pl.agagra.google.utils.TestCaseListener;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+@Listeners({TestCaseListener.class})
 public class GoogleSearchTest {
 
     public static final int NUMBER_OF_POSITIVE_SEARCHES = 6;
@@ -29,7 +28,7 @@ public class GoogleSearchTest {
 
     @BeforeMethod
     public void beforeEveryTest() {
-        LOG.info("");
+        LOG.info("Setting up FireFox driver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         driver.manage().deleteAllCookies();
@@ -41,7 +40,6 @@ public class GoogleSearchTest {
 
     @AfterMethod
     public void afterEveryTest() {
-        System.out.println("Test done!");
         driver.quit();
     }
 
@@ -81,7 +79,6 @@ public class GoogleSearchTest {
     public void nonIndexedPhrasesShouldNotGiveAnyResults() {
         googleResultPage = googleSearchPage.inputPhrase("()");
         googleResultPage.confirmSearchWithEnter();
-        System.out.println(googleResultPage.notFoundSloganIsDisplayed());
 
     }
 
