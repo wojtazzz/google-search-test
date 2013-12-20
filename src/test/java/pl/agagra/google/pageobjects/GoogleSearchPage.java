@@ -5,18 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Wojtas
  * Date: 17.12.13
  * Time: 21:59
- * To change this template use File | Settings | File Templates.
+ *
+ * Page Object respesenting main google page with search field
  */
 public class GoogleSearchPage extends Page {
 
-    private By googleLogoLocator = By.cssSelector("#hplogo");
-    private By searchButtonLocator = By.cssSelector("#gbqfba");
-    private By searchFieldLocator = By.cssSelector("#gbqfq");
-    private By luckyShotButtonLocator = By.cssSelector("#gbqfbb");
+    private By googleLogoLocator = By.id("hplogo");
+    private By searchButtonLocator = By.id("gbqfba");
+    private By searchFieldLocator = By.id("#gbqfq");
     private By cookieInfoSloganLocator = By.xpath(".//*[@id='epb-notice']");
     private By cookieAcceptButtonLocator = By.cssSelector("#epb-ok");
 
@@ -46,9 +45,7 @@ public class GoogleSearchPage extends Page {
 
     public GoogleSearchPage acceptCookies() {
         waitForElementVisible(cookieAcceptButtonLocator, 5);
-
         driver.findElement(cookieAcceptButtonLocator).click();
-
         return this;
     }
 

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Wojtas
  * Date: 18.12.13
  * Time: 19:08
- * To change this template use File | Settings | File Templates.
- */
+ *
+ * Utils class for extracting test data from txt file
+ * */
 public class FileUtils {
 
 
@@ -22,12 +22,12 @@ public class FileUtils {
     public static List<String> getRandomListOfNouns(int numberOfWords) {
         List<String> wordList = new ArrayList<String>();
         Scanner input = getScanner();
-        parseToList(wordList, input);
+        parseText(wordList, input);
         Collections.shuffle(wordList);
         return wordList.subList(0, numberOfWords);
     }
 
-    private static void parseToList(List<String> wordList, Scanner input) {
+    private static void parseText(List<String> wordList, Scanner input) {
         while (input.hasNext()) {
             String nextLine = input.nextLine();
             wordList.add(nextLine);

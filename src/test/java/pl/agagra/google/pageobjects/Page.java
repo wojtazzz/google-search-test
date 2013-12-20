@@ -3,16 +3,18 @@ package pl.agagra.google.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Wojtas
  * Date: 17.12.13
  * Time: 22:21
- * To change this template use File | Settings | File Templates.
+ *
+ * Base class for all page objects.
+ * Contains generalized page functionalities.
  */
 public class Page {
 
@@ -42,32 +44,9 @@ public class Page {
         }
     }
 
-    protected void hoverAndClick(String clickCssLocator) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        StringBuilder command = new StringBuilder();
-        command.append("var x = $(\'" + clickCssLocator + "\');");
-        // command.append("x.hover();");
-        command.append("x.click();");
-        js.executeScript(command.toString());
-    }
-
-    public boolean waitForJQueryProcessing(int timeOutInSeconds) {
-        boolean jQcondition = false;
-        try {
-            new WebDriverWait(driver, timeOutInSeconds) {
-            }.until(new ExpectedCondition<Boolean>() {
-
-                @Override
-                public Boolean apply(WebDriver driverObject) {
-                    return (Boolean) ((JavascriptExecutor) driverObject).executeScript("return jQuery.active == 0");
-                }
-            });
-            jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active == 0");
-            return jQcondition;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jQcondition;
+    protected void waitForElementPresent(final By by, int timeOutInSeconds) {
+        WebElement myDynamicElement = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
 }
